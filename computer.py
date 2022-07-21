@@ -26,6 +26,7 @@ chat_id = os.getenv("telegram.bot.chatid")
 bot = telepot.Bot(os.getenv("telegram.bot.token"))
 
 cam_list = pygame.camera.list_cameras()
+print("cam_list: ", cam_list)
 if cam_list:
     cam = pygame.camera.Camera(cam_list[0], (640, 480))
     cam.start()
