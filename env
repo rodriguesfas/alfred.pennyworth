@@ -1,3 +1,5 @@
 telegram.bot.name=
 telegram.bot.chatid=
 telegram.bot.token=
+
+path.data.photo="/home/yourname/alfred.pennyworth/data/img/"
