@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """
 main.py
 """
@@ -9,10 +12,12 @@ import random
 import datetime
 import telepot
 import RPi.GPIO as GPIO
-import picamera
 
 from dotenv import load_dotenv
 load_dotenv()
+
+chat_id = os.getenv('telegram.bot.chatid')
+bot = telepot.Bot(os.getenv('telegram.bot.token'))
 
  
 GPIO.setwarnings(False)
@@ -46,19 +51,13 @@ def handle(msg):
     if command =='Off':
         bot.sendMessage(chat_id, Off(13))
     if command =='Foto':
-        # Chave do chatID
-        chat_id = os.getenv('telegram.bot.token')
- 
-        #Habilita disparo da camera através da Raspberry PI
-        camera = picamera.PiCamera()
-        camera.capture('./Capture.jpg')
-        camera.close()
         # Envia a foto tirada para o software telegram através do Chat_ID
         bot.sendPhoto(chat_id=chat_id, photo=open('./Capture.jpg', 'rb'))
         # Permite que os comandos digitados no telegram sejam enviados a Raspberry PI
-        bot = telepot.Bot('Cole aqui o token to acess')
-        bot.message_loop(handle)
-        print('Esperando Comando...')
- 
+        
+        
+bot.message_loop(handle)
+print('Esperando Comando...')
+
 while 1:
     time.sleep(10)
